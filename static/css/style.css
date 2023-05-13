@@ -1,0 +1,20 @@
+<style>
+  /*nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }*/
+  
+  .navbar-text {
+    order: 1; /* Set the brand to the left on larger screens */
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .navbar-text {
+/*      order: 2; /* Move the brand to the center on smaller screens */*/
+      text-align: center;
+      width: 100%;
+      position: relative;
+    }
+  }
+</style>

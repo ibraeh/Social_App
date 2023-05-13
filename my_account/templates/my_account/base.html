@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+  <a class="navbar-brand" href="{% url 'dashboard' %}">Bookmarks</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% if section == 'dashboard' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+      </li>
+      <li class="nav-item {% if section == 'images' %}active{% endif %}">
+        <a class="nav-link" href="#">Images</a>
+      </li>
+      <li class="nav-item {% if section == 'people' %}active{% endif %}">
+        <a class="nav-link" href="#">People</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'edit' %}">Edit Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+        <!-- <form class="d-flex me-auto">
+            <input class="form-control me-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+         -->
+  </div>
+</nav>
+
+{% if messages %}
+<div class="container mt-3">
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    {% for message in messages %}
+      {{ message|safe }}<br>
+    {% endfor %}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+{% endif %}
+
+<div class="container mt-3">
+{% block content %}
+{% endblock %}
+</div>
+
+<!-- jQuery and Bootstrap Bundle JS -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
