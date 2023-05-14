@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from django.urls import reverse_lazy
+from environs import Env
+
+env = Env()
+env.read_env()  # read .env file, if it exists
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,12 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%z&6qga9w&q69^68+)&rnqehd3&cgtqmijfr*t_lov8as07bb4'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS =env.list('ALLOWED_HOSTS') 
 
 
 # Application definition
@@ -171,9 +175,9 @@ LOGOUT_URL = 'logout'
 # Gmail or google configuration
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT=587
-EMAIL_HOST_USER='bigibraeh@gmail.com'
-EMAIL_HOST_PASSWORD= 'zkojshhubuoczkzv'#'jiaqflfbwbuofndv'
+EMAIL_PORT=env('EMAIL_PORT')
+EMAIL_HOST_USER=env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD= env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS=True
 
 
@@ -222,5 +226,5 @@ INTERNAL_IPS = [
 
 
 REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
+REDIS_PORT = env('REDIS_PORT')
 REDIS_DB = 0
